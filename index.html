@@ -1,0 +1,1078 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Iverson Conrado</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Iverson Conrado Bezerra — bioinformática estrutural, dinâmica molecular, proteômica e P&D em saúde.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<meta property="og:title" content="Iverson Conrado Bezerra">
+<meta property="og:image" content="images/portrait.webp">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='9' cy='20' r='5' fill='%231F716C'/%3E%3Ccircle cx='16' cy='12' r='5' fill='%23A8285F'/%3E%3Ccircle cx='23' cy='20' r='5' fill='%231F716C'/%3E%3C/svg%3E">
+<style>
+/* Layout: one left-aligned reading column (max 1120px). The hero pairs the name with a live
+   coarse-grained Aβ1–42 trajectory — the only loud element. Everything below is quiet type,
+   a dated R&D timeline, and findings written as results, not as job duties. */
+:root{
+  --bg:#F1F4F3;          /* lab-bench grey with a green bias */
+  --surface:#FFFFFF;
+  --ink:#152326;         /* deep blue-green ink */
+  --muted:#56676A;
+  --line:#D5DEDC;
+  --rose:#A8285F;        /* helix colour in VMD-like renderings: charged residues, accents */
+  --teal:#1F716C;        /* coil colour: hydrophobic residues, links */
+  --rose-soft:#F6E3EB;
+  --teal-soft:#DDEDEB;
+  --font-sans:"Schibsted Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono:"IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --step-0:1rem; --step-1:1.2rem; --step-2:1.5rem; --step-3:clamp(1.75rem,1.3rem + 1.8vw,2.4rem); --step-4:clamp(2.5rem,1.6rem + 4vw,4.4rem);
+  --radius:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1719; --surface:#152225; --ink:#E3ECEA; --muted:#97A9AB; --line:#26383B;
+    --rose:#EA74A6; --teal:#5EC2B9; --rose-soft:#3A1F2B; --teal-soft:#173331; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1719; --surface:#152225; --ink:#E3ECEA; --muted:#97A9AB; --line:#26383B;
+  --rose:#EA74A6; --teal:#5EC2B9; --rose-soft:#3A1F2B; --teal-soft:#173331; color-scheme:dark;
+}
+
+/* language switch: Portuguese is the default */
+:root:not(.l-en) [data-l="en"]{display:none!important}
+:root.l-en [data-l="pt"]{display:none!important}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:5.5rem}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--bg); color:var(--ink); font-family:var(--font-sans); font-size:var(--step-0); line-height:1.6; -webkit-font-smoothing:antialiased}
+body::before{content:""; position:fixed; inset:0 0 auto; height:env(safe-area-inset-top,0px); z-index:30; background:var(--bg)}
+a{color:var(--teal); text-underline-offset:.18em; text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--rose); outline-offset:3px; border-radius:4px}
+h1,h2,h3{line-height:1.1; text-wrap:balance; margin:0; font-weight:800; letter-spacing:-.02em}
+p{margin:0}
+ul,ol{margin:0; padding:0; list-style:none}
+.wrap{max-width:1120px; margin:0 auto; padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px))}
+.mono{font-family:var(--font-mono); font-size:.86em}
+
+/* ---------- header ---------- */
+.top{position:sticky; top:env(safe-area-inset-top,0px); z-index:20; background:color-mix(in srgb, var(--bg) 90%, transparent); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border-bottom:1px solid var(--line)}
+.top .wrap{display:flex; flex-wrap:wrap; align-items:center; gap:.25rem 1.5rem; padding-block:.7rem}
+.brand{font-weight:800; color:var(--ink); text-decoration:none; letter-spacing:-.01em; margin-right:auto}
+.nav{display:flex; gap:1.25rem; overflow-x:auto; scrollbar-width:none; white-space:nowrap}
+.nav::-webkit-scrollbar{display:none}
+.nav a{color:var(--muted); text-decoration:none; font-size:.94rem; font-weight:500; padding-block:.2rem}
+.nav a:hover{color:var(--ink)}
+.lang{display:inline-flex; border:1px solid var(--line); border-radius:999px; padding:2px; background:var(--surface)}
+.lang button{font:inherit; font-size:.8rem; font-weight:600; border:0; background:transparent; color:var(--muted); padding:.2rem .6rem; border-radius:999px; cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink); color:var(--bg)}
+.theme-btn{display:inline-flex; align-items:center; gap:.35rem; font:inherit; font-size:.8rem; font-weight:600; border:1px solid var(--line); background:var(--surface); color:var(--ink); border-radius:999px; padding:.3rem .7rem; cursor:pointer}
+.theme-btn svg{width:15px; height:15px}
+.theme-btn .sun{display:none}
+:root[data-theme="dark"] .theme-btn .sun{display:block}
+:root[data-theme="dark"] .theme-btn .moon{display:none}
+.tools{display:flex; gap:.4rem; align-items:center}
+@media (max-width:820px){
+  .nav{order:3; width:100%; gap:1.1rem; padding-bottom:.15rem; mask-image:linear-gradient(90deg,#000 85%,transparent)}
+}
+
+/* ---------- hero ---------- */
+.hero{padding-block:clamp(2.5rem,6vw,5rem) clamp(2rem,4vw,3.5rem)}
+.hero .wrap{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); gap:clamp(1.5rem,4vw,3.5rem); align-items:center}
+.hero h1{font-size:var(--step-4); letter-spacing:-.035em; line-height:.98}
+.hero h1 span{color:var(--muted); font-weight:500}
+.role{margin-top:1.1rem; font-size:var(--step-1); font-weight:600; max-width:30ch}
+.thesis{margin-top:.9rem; color:var(--muted); max-width:52ch}
+.links{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.5rem}
+.btn{display:inline-flex; align-items:center; gap:.45rem; font:inherit; font-size:.92rem; font-weight:600; padding:.55rem .95rem; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--ink); text-decoration:none; cursor:pointer}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+.btn svg{width:16px; height:16px; flex:none}
+
+.md{margin:0; position:relative}
+.md canvas{display:block; width:100%; height:auto; aspect-ratio:5/4; max-width:100%}
+.md figcaption{padding:.25rem 0 0; display:grid; gap:.4rem}
+.seq{font-family:var(--font-mono); font-size:.78rem; letter-spacing:.06em; word-break:break-all; line-height:1.5}
+.seq .h{color:var(--teal); font-weight:500}
+.seq .c{color:var(--rose); font-weight:500}
+.seq .p{color:var(--muted)}
+.cap{font-size:.82rem; color:var(--muted)}
+.legend{display:flex; flex-wrap:wrap; gap:.25rem 1rem; font-size:.78rem; color:var(--muted)}
+.legend i{display:inline-block; width:.6rem; height:.6rem; border-radius:50%; margin-right:.35rem; vertical-align:baseline}
+
+@media (max-width:820px){
+  .hero .wrap{grid-template-columns:minmax(0,1fr)}
+}
+
+/* ---------- sections ---------- */
+section.block{padding-block:clamp(3rem,7vw,5.5rem); border-top:1px solid var(--line)}
+.head{display:grid; gap:.6rem; margin-bottom:clamp(1.75rem,4vw,2.75rem); max-width:62ch}
+.head h2{font-size:var(--step-3)}
+.head p{color:var(--muted)}
+
+/* about */
+.about{display:grid; grid-template-columns:220px minmax(0,1fr); gap:clamp(1.5rem,4vw,3rem); align-items:start}
+.portrait{width:100%; max-width:220px; aspect-ratio:1; border-radius:50%; background:var(--teal-soft); overflow:hidden}
+.portrait img{width:100%; height:100%; object-fit:cover; object-position:50% 20%; display:block}
+.about-text{display:grid; gap:1rem; max-width:66ch}
+.edu{display:grid; gap:0; margin-top:.5rem; border-top:1px solid var(--line)}
+.edu li{display:grid; grid-template-columns:7.5rem minmax(0,1fr); gap:1rem; padding-block:.85rem; border-bottom:1px solid var(--line)}
+.edu .yr{font-variant-numeric:tabular-nums; color:var(--muted); font-size:.92rem}
+.edu b{display:block}
+.edu span.sub{color:var(--muted); font-size:.92rem}
+@media (max-width:640px){
+  .about{grid-template-columns:minmax(0,1fr)}
+  .portrait{max-width:150px}
+  .edu li{grid-template-columns:minmax(0,1fr); gap:.1rem}
+}
+
+/* R&D timeline */
+.tl{position:relative; display:grid; gap:0}
+.tl > li{display:grid; grid-template-columns:9rem minmax(0,1fr); gap:1.5rem; padding-block:1.6rem; border-bottom:1px solid var(--line)}
+.tl > li:first-child{padding-top:0}
+.tl .when{font-variant-numeric:tabular-nums; font-weight:600; color:var(--muted); font-size:.95rem}
+.tl .when small{display:block; font-weight:500; margin-top:.2rem}
+.tl h3{font-size:var(--step-2); letter-spacing:-.015em}
+.tl .org{color:var(--muted); margin-top:.25rem; font-size:.95rem}
+.tl .body{display:grid; gap:.7rem; max-width:68ch}
+.tl ul.did{display:grid; gap:.35rem; padding-left:1.1rem; list-style:disc}
+.tl ul.did li::marker{color:var(--rose)}
+.tags{display:flex; flex-wrap:wrap; gap:.35rem}
+.tag{font-size:.78rem; font-weight:500; padding:.18rem .55rem; border-radius:999px; background:var(--teal-soft); color:var(--teal)}
+.tag.r{background:var(--rose-soft); color:var(--rose)}
+.out{font-size:.92rem; color:var(--muted)}
+.out a{font-weight:600}
+@media (max-width:640px){
+  .tl > li{grid-template-columns:minmax(0,1fr); gap:.5rem}
+}
+
+/* DynamiSpectra feature */
+.ds{display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:clamp(1.5rem,4vw,3rem); background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:clamp(1.25rem,4vw,2.5rem)}
+.ds h3{font-size:var(--step-3)}
+.ds .lead{margin-top:.8rem; max-width:52ch}
+.ds dl{display:grid; grid-template-columns:auto minmax(0,1fr); gap:.45rem 1rem; margin:1.25rem 0 0; font-size:.94rem}
+.ds dt{color:var(--muted)}
+.ds dd{margin:0}
+.term{display:flex; align-items:center; gap:.5rem; margin-top:1.25rem; background:var(--bg); border:1px solid var(--line); border-radius:var(--radius); padding:.55rem .6rem .55rem .9rem; min-width:0}
+.term code{font-family:var(--font-mono); font-size:.9rem; flex:1; min-width:0; overflow-x:auto; white-space:nowrap}
+.term code::before{content:"$ "; color:var(--muted)}
+.copy{font:inherit; font-size:.8rem; font-weight:600; border:1px solid var(--line); background:var(--surface); color:var(--ink); border-radius:999px; padding:.25rem .7rem; cursor:pointer; flex:none}
+.metrics{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.5rem}
+.metrics li{border:1px solid var(--line); border-radius:var(--radius); padding:.7rem .8rem; display:grid; gap:.15rem}
+.metrics b{font-family:var(--font-mono); font-weight:500; font-size:.92rem; color:var(--teal)}
+.metrics span{font-size:.84rem; color:var(--muted); line-height:1.35}
+.ds .links{margin-top:1.25rem}
+@media (max-width:820px){ .ds{grid-template-columns:minmax(0,1fr)} }
+
+/* findings */
+.fgrid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.25rem}
+.f{background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); padding:0 0 1.15rem; display:flex; flex-direction:column; gap:.55rem; min-width:0; overflow:hidden}
+.f > :not(svg){margin-inline:1.15rem}
+.f .il{display:block; width:100%; height:auto; aspect-ratio:16/9; background:var(--bg); border-bottom:1px solid var(--line); margin-bottom:.4rem}
+.area{font-size:.8rem; font-weight:600; color:var(--teal)}
+.f .claim{font-size:1.04rem; font-weight:700; line-height:1.32; letter-spacing:-.01em}
+.f p{font-size:.92rem; color:var(--muted)}
+.f .claim{color:var(--ink)}
+.f .src{margin-top:auto; padding-top:.55rem; border-top:1px dashed var(--line); font-size:.84rem}
+.f .src a{font-weight:600}
+@media (max-width:960px){ .fgrid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:600px){ .fgrid{grid-template-columns:minmax(0,1fr)} }
+
+/* illustration palette, shared by findings and news */
+.il .t{fill:var(--teal)} .il .r{fill:var(--rose)} .il .m{fill:var(--muted)}
+.il .ts{fill:var(--teal-soft)} .il .rs{fill:var(--rose-soft)} .il .sf{fill:var(--surface)}
+.il .so{stroke:var(--line)}
+.il .ln{stroke:var(--line)} .il .ink{stroke:var(--ink)}
+.il .edges line{stroke:var(--line)}
+.il .hx{fill:none; stroke:var(--rose)}
+.il .dash{stroke:var(--rose); stroke-dasharray:4 4}
+.il .tl{stroke:var(--teal)} .il .tl2{stroke:var(--teal)} .il .rl{stroke:var(--rose)}
+.il .worm{stroke:var(--teal-soft)} .il .worm2{stroke:var(--surface)} .il .gut{stroke:var(--teal); opacity:.5}
+.il text{font-family:var(--font-mono); fill:var(--muted)}
+.il .lbl{font-size:13px} .il .val{font-size:13px; font-weight:500; fill:var(--surface)}
+.il .big{font-size:22px; font-weight:500; fill:var(--ink)} .il .t-txt{fill:var(--teal)} .il .r-txt{fill:var(--rose)}
+.il .head{fill:var(--muted)} .il .tail{stroke:var(--line)}
+
+/* news */
+.news{display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:1.25rem}
+.n{display:flex; flex-direction:column; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; color:var(--ink); text-decoration:none; min-width:0}
+.n:hover{border-color:var(--ink)}
+.n:hover h3{text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.18em}
+.nimg{position:relative; aspect-ratio:16/10; background:var(--teal-soft); border-bottom:1px solid var(--line); overflow:hidden}
+.nimg img, .nimg .il{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block}
+.nimg img{z-index:1; object-position:50% 30%}
+.nbody{padding:1rem 1.15rem 1.2rem; display:grid; gap:.5rem}
+.nsrc{font-size:.8rem; font-weight:600; color:var(--teal)}
+.n h3{font-size:1.08rem; line-height:1.3; letter-spacing:-.01em}
+.n.feat h3{font-size:var(--step-1)}
+.nbody p:not(.nsrc){font-size:.92rem; color:var(--muted)}
+.credit{font-size:.76rem!important}
+@media (max-width:960px){ .news{grid-template-columns:repeat(2,minmax(0,1fr))} .n.feat{grid-column:1 / -1} }
+@media (max-width:600px){ .news{grid-template-columns:minmax(0,1fr)} }
+
+/* publications */
+.filters{display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1.25rem}
+.filters button{font:inherit; font-size:.86rem; font-weight:500; padding:.35rem .8rem; border-radius:999px; border:1px solid var(--line); background:var(--surface); color:var(--ink); cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+.pubs{display:grid; border-top:1px solid var(--line)}
+.pubs li{display:grid; grid-template-columns:3.5rem minmax(0,1fr); gap:1rem; padding-block:.9rem; border-bottom:1px solid var(--line)}
+.pubs .y{font-variant-numeric:tabular-nums; color:var(--muted); font-size:.92rem; padding-top:.1rem}
+.pubs .t{font-weight:600; line-height:1.4}
+.pubs .t a{color:var(--ink); text-decoration:none}
+.pubs .t a:hover{color:var(--teal); text-decoration:underline; text-decoration-thickness:1px}
+.pubs .go{font-weight:600; white-space:nowrap}
+.pubs .j{font-size:.9rem; color:var(--muted); margin-top:.15rem}
+.pubs .j em{font-style:italic}
+.me{font-size:.74rem; font-weight:600; padding:.08rem .45rem; border-radius:999px; background:var(--rose-soft); color:var(--rose); margin-left:.35rem; white-space:nowrap}
+.pubs-note{margin-top:1rem; font-size:.9rem; color:var(--muted)}
+@media (max-width:520px){ .pubs li{grid-template-columns:minmax(0,1fr); gap:.15rem} }
+
+/* methods */
+.methods{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1.75rem 2rem}
+.methods h3{font-size:1.05rem; font-weight:700; margin-bottom:.5rem}
+.methods ul{display:grid; gap:.3rem; font-size:.95rem; color:var(--muted)}
+@media (max-width:860px){ .methods{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:520px){ .methods{grid-template-columns:minmax(0,1fr)} }
+
+/* more */
+.more{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:2rem 3rem}
+.more h3{font-size:1.05rem; font-weight:700; margin-bottom:.6rem}
+.more ul{display:grid; gap:.5rem; font-size:.95rem}
+.more li span{color:var(--muted)}
+@media (max-width:900px){ .more{grid-template-columns:minmax(0,1fr)} }
+
+/* contact */
+.contact{background:var(--ink); color:var(--bg)}
+.contact .wrap{padding-block:clamp(3rem,7vw,5rem); display:grid; gap:1.25rem}
+.contact h2{font-size:var(--step-3); max-width:22ch}
+.contact p{max-width:56ch; opacity:.8}
+.mail{display:flex; flex-wrap:wrap; align-items:center; gap:.6rem}
+.mail a{color:var(--bg); font-size:clamp(1.05rem,.9rem + 1vw,1.5rem); font-weight:700; word-break:break-all}
+.contact .copy{background:transparent; color:var(--bg); border-color:color-mix(in srgb, var(--bg) 40%, transparent)}
+.contact .links .btn{background:transparent; color:var(--bg); border-color:color-mix(in srgb, var(--bg) 35%, transparent)}
+.contact .links .btn:hover{border-color:var(--bg)}
+footer{font-size:.84rem; color:var(--muted)}
+footer .wrap{padding-block:1.5rem; display:flex; flex-wrap:wrap; gap:.5rem 1.5rem; justify-content:space-between}
+</style>
+<style>body{margin:0} img{max-width:100%} [hidden]{display:none!important} :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio">Iverson Conrado</a>
+    <nav class="nav" aria-label="Seções">
+      <a href="#sobre"><span data-l="pt">Sobre</span><span data-l="en">About</span></a>
+      <a href="#pd"><span data-l="pt">P&amp;D na indústria</span><span data-l="en">Industry R&amp;D</span></a>
+      <a href="#software">Software</a>
+      <a href="#achados"><span data-l="pt">Achados</span><span data-l="en">Findings</span></a>
+      <a href="#noticias"><span data-l="pt">Notícias</span><span data-l="en">News</span></a>
+      <a href="#publicacoes"><span data-l="pt">Publicações</span><span data-l="en">Publications</span></a>
+      <a href="#metodos"><span data-l="pt">Métodos</span><span data-l="en">Methods</span></a>
+      <a href="#contato"><span data-l="pt">Contato</span><span data-l="en">Contact</span></a>
+    </nav>
+    <div class="tools">
+    <button type="button" class="theme-btn" id="theme-btn" aria-label="Alternar modo claro e escuro">
+      <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <span class="moon"><span data-l="pt">Escuro</span><span data-l="en">Dark</span></span><span class="sun"><span data-l="pt">Claro</span><span data-l="en">Light</span></span>
+    </button>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" id="lang-pt" data-set="pt" aria-pressed="true">PT</button>
+      <button type="button" id="lang-en" data-set="en" aria-pressed="false">EN</button>
+    </div>
+    </div>
+  </div>
+</header>
+
+<main id="inicio">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1><span>Iverson</span><br>Conrado <span>Bezerra</span></h1>
+        <p class="role">
+          <span data-l="pt">Bioinformática estrutural e neurociência computacional</span>
+          <span data-l="en">Structural bioinformatics and computational neuroscience</span>
+        </p>
+        <p class="thesis">
+          <span data-l="pt">Uso dinâmica molecular, proteômica e aprendizado de máquina para entender a agregação do beta-amiloide e desenhar peptídeos terapêuticos. Levo esse ferramental para P&amp;D em empresas de saúde, nutracêuticos e agro.</span>
+          <span data-l="en">I use molecular dynamics, proteomics and machine learning to understand amyloid-beta aggregation and to design therapeutic peptides. I bring that toolkit to R&amp;D in health, nutraceutical and agricultural companies.</span>
+        </p>
+        <div class="links">
+          <a class="btn primary" href="#contato"><span data-l="pt">Falar comigo</span><span data-l="en">Get in touch</span></a>
+          <a class="btn" href="http://lattes.cnpq.br/4119148962527564" target="_blank" rel="noopener">Lattes</a>
+          <a class="btn" href="https://orcid.org/0000-0003-0524-8913" target="_blank" rel="noopener">ORCID</a>
+          <a class="btn" href="https://github.com/Conradoou" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn" href="https://br.linkedin.com/in/iverson-conrado-6633bb180" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+
+      <figure class="md">
+        <canvas id="traj" width="1000" height="800" role="img" aria-label="Animação ilustrativa de um modelo de grão grosso do peptídeo beta-amiloide 1–42 com o gráfico de RMSD ao longo do tempo"></canvas>
+        <figcaption>
+          <div class="seq" id="seq" aria-label="Sequência do Aβ1–42"></div>
+          <div class="legend">
+            <span><i style="background:var(--teal)"></i><span data-l="pt">hidrofóbico</span><span data-l="en">hydrophobic</span></span>
+            <span><i style="background:var(--rose)"></i><span data-l="pt">carregado</span><span data-l="en">charged</span></span>
+            <span><i style="background:var(--muted)"></i><span data-l="pt">polar / Gly</span><span data-l="en">polar / Gly</span></span>
+          </div>
+          <p class="cap">
+            <span data-l="pt">Aβ1–42 em modelo de grão grosso. Animação ilustrativa, não é uma trajetória publicada.</span>
+            <span data-l="en">Aβ1–42 as a coarse-grained model. Illustrative animation, not a published trajectory.</span>
+          </p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="block" id="sobre">
+    <div class="wrap about">
+      <div class="portrait"><img src="images/portrait.webp" alt="Retrato de Iverson Conrado" width="640" height="640"></div>
+      <div class="about-text">
+        <h2 style="font-size:var(--step-3)"><span data-l="pt">Sobre</span><span data-l="en">About</span></h2>
+        <p data-l="pt">Sou biomédico (UFPE), mestre em Biologia Aplicada à Saúde (iLIKA/UFPE) e doutorando em Bioinformática na UFMG. Trabalho na interface entre inteligência artificial, bioinformática estrutural e neurociências. Desenvolvo e ajusto modelos de IA para gerar peptídeos, testo esses candidatos e pequenas moléculas em simulações de dinâmica molecular contra o beta-amiloide e transformo os melhores resultados em propostas de estratégias terapêuticas</i>.</p>
+        <p data-l="en">I hold a degree in Biomedicine (UFPE), an MSc in Biology Applied to Health (iLIKA/UFPE), and I'm a PhD student in Bioinformatics at UFMG. I work at the interface of artificial intelligence, structural bioinformatics and neuroscience. I build and fine-tune AI models to generate peptides, test those candidates and small molecules against amyloid-beta in molecular dynamics simulations, and turn the best results into proposals for therapeutic strategies</i>.</p>
+        <p data-l="pt">Fora da academia, atuo como consultor científico em projetos de inovação: indicações clínicas de canabinoides, nova apresentação de suplemento para TEA, redação médica para a indústria farmacêutica e transcriptômica aplicada ao controle de pragas agrícolas. Sou revisor de <i>NeuroToxicology</i>, <i>Phytotherapy Research</i>, <i>Journal of Drug Delivery Science and Technology</i> e <i>Arabian Journal of Chemistry</i>.</p>
+        <p data-l="en">Outside academia I work as a scientific consultant on innovation projects: clinical indications for cannabinoids, a new supplement presentation for autism, medical writing for the pharmaceutical industry, and transcriptomics for agricultural pest control. I review for <i>NeuroToxicology</i>, <i>Phytotherapy Research</i>, <i>Journal of Drug Delivery Science and Technology</i> and <i>Arabian Journal of Chemistry</i>.</p>
+        <ul class="edu">
+          <li><span class="yr">2026 –</span><div><b><span data-l="pt">Parceiro do Instituto Keizo Asami (iLIKA/UFPE)</span><span data-l="en">Partner, Keizo Asami Institute (iLIKA/UFPE)</span></b><span class="sub"><span data-l="pt">bioinformata em projetos de agricultura e manejo de pragas</span><span data-l="en">bioinformatician on agriculture and pest-management projects</span></span></div></li>
+          <li><span class="yr">2026 –</span><div><b><span data-l="pt">Doutorado em Bioinformática</span><span data-l="en">PhD in Bioinformatics</span></b><span class="sub">ICEx/UFMG · <span data-l="pt">orient.</span><span data-l="en">advisor</span> Raquel C. de Melo Minardi · <span data-l="pt">design de peptídeos contra agregação do Aβ por algoritmos genéticos e ML com fine-tuning</span><span data-l="en">peptide design against Aβ aggregation with genetic algorithms and fine-tuned ML</span></span></div></li>
+          <li><span class="yr">2024 – 2026</span><div><b><span data-l="pt">Mestrado em Biologia Aplicada à Saúde</span><span data-l="en">MSc in Biology Applied to Health</span></b><span class="sub">iLIKA/UFPE · <span data-l="pt">bolsista CNPq · orient.</span><span data-l="en">CNPq fellow · advisor</span> Priscila Gubert · <span data-l="pt">dinâmica do beta-amiloide por análise computacional e proteômica integradas</span><span data-l="en">integrative computational and proteomic analysis of amyloid-beta dynamics</span></span></div></li>
+          <li><span class="yr">2018 – 2023</span><div><b><span data-l="pt">Bacharelado em Biomedicina</span><span data-l="en">BSc in Biomedicine</span></b><span class="sub">UFPE</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- R&D -->
+  <section class="block" id="pd">
+    <div class="wrap">
+      <div class="head">
+        <h2><span data-l="pt">P&amp;D na indústria</span><span data-l="en">Industry R&amp;D</span></h2>
+        <p><span data-l="pt">Projetos de inovação e consultoria científica em empresas, do mais recente ao mais antigo.</span><span data-l="en">Innovation projects and scientific consulting for companies, most recent first.</span></p>
+      </div>
+      <ol class="tl">
+        <li>
+          <div class="when"><span data-l="pt">Atual</span><span data-l="en">Current</span><small data-l="pt">prestação de serviço</small><small data-l="en">contract work</small></div>
+          <div class="body">
+            <div><h3><span data-l="pt">Transcriptômica para controle de pragas</span><span data-l="en">Transcriptomics for pest control</span></h3><p class="org"><span data-l="pt">Empresa do setor agrícola (confidencial)</span><span data-l="en">Agricultural company (confidential)</span></p></div>
+            <ul class="did">
+              <li data-l="pt">Análises transcriptômicas de pragas da ordem Lepidoptera ao longo do desenvolvimento larval.</li>
+              <li data-l="en">Transcriptomic analyses of Lepidoptera pests across larval development.</li>
+              <li data-l="pt">Seleção de genes-alvo para o manejo.</li>
+              <li data-l="en">Target-gene selection for management.</li>
+            </ul>
+            <div class="tags"><span class="tag">RNA-seq</span><span class="tag">RNAi</span><span class="tag r"><span data-l="pt">bioinsumos</span><span data-l="en">bio-inputs</span></span></div>
+          </div>
+        </li>
+        <li>
+          <div class="when">2025<small>Vitafor</small></div>
+          <div class="body">
+            <div><h3><span data-l="pt">Canabinoides: indicações clínicas e doses</span><span data-l="en">Cannabinoids: clinical indications and doses</span></h3><p class="org">Vida Forte Nutrientes (Vitafor) · <span data-l="pt">consultor científico</span><span data-l="en">scientific consultant</span></p></div>
+            <ul class="did">
+              <li data-l="pt">Integrei a equipe de consultoria de um projeto de inovação da empresa.</li>
+              <li data-l="en">Member of the consulting team on one of the company's innovation projects.</li>
+              <li data-l="pt">Propus indicações clínicas e faixas de dose para produtos com canabinoides a partir da evidência publicada.</li>
+              <li data-l="en">Proposed clinical indications and dose ranges for cannabinoid products based on published evidence.</li>
+            </ul>
+            <div class="tags"><span class="tag"><span data-l="pt">desenvolvimento de produto</span><span data-l="en">product development</span></span><span class="tag r"><span data-l="pt">nutracêuticos</span><span data-l="en">nutraceuticals</span></span></div>
+          </div>
+        </li>
+        <li>
+          <div class="when">2024 – 2025<small>Elleven Healthcare</small></div>
+          <div class="body">
+            <div><h3><span data-l="pt">Endocan para crianças com TEA</span><span data-l="en">Endocan for children with autism</span></h3><p class="org">Elleven Healthcare · <span data-l="pt">consultor científico</span><span data-l="en">scientific consultant</span></p></div>
+            <ul class="did">
+              <li data-l="pt">Consultoria no desenvolvimento de uma nova apresentação do suplemento Endocan para uso pediátrico no Transtorno do Espectro Autista.</li>
+              <li data-l="en">Consulted on a new presentation of the Endocan supplement for paediatric use in Autism Spectrum Disorder.</li>
+              <li data-l="pt">Criação do material de divulgação médica do produto.</li>
+              <li data-l="en">Wrote the product's medical communication material.</li>
+            </ul>
+            <p class="out"><span data-l="pt">Base científica relacionada:</span><span data-l="en">Related science:</span> <i>Nutraceutical approaches for Autism Spectrum Disorder treatment</i>, Behavioural Brain Research, 2025.</p>
+            <div class="tags"><span class="tag"><span data-l="pt">formulação</span><span data-l="en">formulation</span></span><span class="tag r"><span data-l="pt">comunicação médica</span><span data-l="en">medical communication</span></span></div>
+          </div>
+        </li>
+        <li>
+          <div class="when">2023 – 2024<small>MIND</small></div>
+          <div class="body">
+            <div><h3>Medical writer</h3><p class="org">Mind Estatística e Apresentações Médicas · 40 h/<span data-l="pt">sem</span><span data-l="en">wk</span></p></div>
+            <ul class="did">
+              <li data-l="pt">Elaboração, revisão e correção de materiais científicos e educacionais para a indústria farmacêutica.</li>
+              <li data-l="en">Wrote, reviewed and edited scientific and educational material for the pharmaceutical industry.</li>
+              <li data-l="pt">Síntese de evidência clínica a partir da literatura médica, com rigor técnico e regulatório.</li>
+              <li data-l="en">Synthesised clinical evidence from the medical literature with technical and regulatory rigour.</li>
+              <li data-l="pt">Apoio na organização de painéis de especialistas e <i>advisory boards</i>.</li>
+              <li data-l="en">Supported expert panels and advisory boards.</li>
+            </ul>
+            <div class="tags"><span class="tag">medical writing</span><span class="tag r">advisory boards</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="when">2021 – 2022<small>Chesf</small></div>
+          <div class="body">
+            <div><h3><span data-l="pt">Previsão da saúde de trabalhadores do setor elétrico</span><span data-l="en">Health prediction for power-sector workers</span></h3><p class="org"><span data-l="pt">UFPE, projeto financiado pela Companhia Hidro Elétrica do São Francisco · bolsista</span><span data-l="en">UFPE, project funded by Companhia Hidro Elétrica do São Francisco · research fellow</span></p></div>
+            <ul class="did">
+              <li data-l="pt">Colaborei em um modelo de previsibilidade de saúde que integra sinais vitais, testes moleculares, sorologia e imagens térmicas.</li>
+              <li data-l="en">Contributed to a health-prediction model combining vital signs, molecular tests, serology and thermal imaging.</li>
+            </ul>
+            <div class="tags"><span class="tag"><span data-l="pt">diagnóstico molecular</span><span data-l="en">molecular diagnostics</span></span><span class="tag r"><span data-l="pt">P&amp;D setor elétrico</span><span data-l="en">power-sector R&amp;D</span></span></div>
+          </div>
+        </li>
+        <li>
+          <div class="when">2020<small>Healthdrones</small></div>
+          <div class="body">
+            <div><h3><span data-l="pt">Escudo facial de emergência</span><span data-l="en">Emergency face shield</span></h3><p class="org"><span data-l="pt">Healthdrones Tecnologia, em parceria com o Fab Lab Recife · consultor científico</span><span data-l="en">Healthdrones Tecnologia, with Fab Lab Recife · scientific consultant</span></p></div>
+            <ul class="did">
+              <li data-l="pt">Testes de usabilidade de um escudo facial em chapa polimérica monomaterial durante a pandemia de COVID-19.</li>
+              <li data-l="en">Usability testing of a single-material polymer face shield during the COVID-19 pandemic.</li>
+            </ul>
+            <div class="tags"><span class="tag"><span data-l="pt">dispositivo</span><span data-l="en">device</span></span><span class="tag r">COVID-19</span></div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- SOFTWARE -->
+  <section class="block" id="software">
+    <div class="wrap">
+      <div class="head">
+        <h2>Software</h2>
+        <p><span data-l="pt">Ferramenta que escrevi para tirar a análise de dinâmica molecular do trabalho manual.</span><span data-l="en">A tool I wrote to take the manual work out of molecular dynamics analysis.</span></p>
+      </div>
+      <article class="ds">
+        <div>
+          <h3>DynamiSpectra</h3>
+          <p class="lead"><span data-l="pt">Pacote Python e plataforma web que transformam saídas do GROMACS em métricas e gráficos prontos para publicação. Calcula média e desvio entre réplicas, compara condições e janelas de tempo, e funciona para quem não programa.</span><span data-l="en">A Python package and web platform that turns GROMACS output into metrics and publication-ready plots. It averages across replicas, compares conditions and time windows, and works for people who don't code.</span></p>
+          <dl>
+            <dt><span data-l="pt">Artigo</span><span data-l="en">Paper</span></dt><dd><i>J. Chem. Inf. Model.</i> 2025 · <a href="https://doi.org/10.1021/acs.jcim.5c01270" target="_blank" rel="noopener">10.1021/acs.jcim.5c01270</a></dd>
+            <dt><span data-l="pt">Registro</span><span data-l="en">Registration</span></dt><dd><span data-l="pt">Programa de computador INPI</span><span data-l="en">INPI software registration</span> <span class="mono">BR51202500222</span></dd>
+            <dt><span data-l="pt">Equipe</span><span data-l="en">Team</span></dt><dd>I. C. Bezerra, J. O. Viana, K. C. Weber, P. Gubert</dd>
+          </dl>
+          <div class="term"><code id="pipcmd">pip install DynamiSpectra</code><button class="copy" type="button" data-copy="pip install DynamiSpectra"><span data-l="pt">Copiar</span><span data-l="en">Copy</span></button></div>
+          <div class="links">
+            <a class="btn primary" href="https://dynamispectra.onrender.com/" target="_blank" rel="noopener"><span data-l="pt">Abrir a plataforma web</span><span data-l="en">Open the web platform</span></a>
+            <a class="btn" href="https://github.com/Conradoou/DynamiSpectra" target="_blank" rel="noopener">GitHub</a>
+            <a class="btn" href="https://pypi.org/project/DynamiSpectra/" target="_blank" rel="noopener">PyPI</a>
+            <a class="btn" href="https://dynamispectra.readthedocs.io/" target="_blank" rel="noopener"><span data-l="pt">Documentação</span><span data-l="en">Docs</span></a>
+          </div>
+        </div>
+        <ul class="metrics" aria-label="Análises disponíveis">
+          <li><b>RMSD</b><span data-l="pt">estabilidade estrutural ao longo do tempo</span><span data-l="en">structural stability over time</span></li>
+          <li><b>RMSF</b><span data-l="pt">flexibilidade por resíduo</span><span data-l="en">per-residue flexibility</span></li>
+          <li><b>Rg</b><span data-l="pt">compactação (raio de giro)</span><span data-l="en">compactness (radius of gyration)</span></li>
+          <li><b>SASA</b><span data-l="pt">área acessível ao solvente</span><span data-l="en">solvent-accessible surface area</span></li>
+          <li><b>H-bonds</b><span data-l="pt">ligações de hidrogênio</span><span data-l="en">hydrogen bonds</span></li>
+          <li><b>DSSP</b><span data-l="pt">estrutura secundária</span><span data-l="en">secondary structure</span></li>
+          <li><b>ΔG<sub>bind</sub></b><span data-l="pt">energia de ligação</span><span data-l="en">binding energy</span></li>
+          <li><b>θ</b><span data-l="pt">orientação molecular</span><span data-l="en">molecular orientation</span></li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- FINDINGS -->
+  <section class="block" id="achados">
+    <div class="wrap">
+      <div class="head">
+        <h2><span data-l="pt">Principais achados</span><span data-l="en">Key findings</span></h2>
+        <p><span data-l="pt">O resultado central de cada estudo, em uma frase.</span><span data-l="en">The central result of each study, in one sentence.</span></p>
+      </div>
+      <div class="fgrid">
+
+        <article class="f">
+          <svg class="il" viewBox="0 0 320 180" aria-hidden="true">
+            <path class="ln" d="M30 120 C70 60 110 140 150 95 S230 50 290 100" fill="none" stroke-width="10" stroke-linecap="round"/>
+            <g>
+              <circle class="m" cx="30" cy="120" r="9"/><circle class="r" cx="55" cy="96" r="9"/><circle class="m" cx="80" cy="95" r="9"/>
+              <circle class="t" cx="108" cy="112" r="10"/><circle class="t" cx="132" cy="108" r="10"/><circle class="t" cx="152" cy="94" r="10"/>
+              <circle class="t" cx="174" cy="80" r="10"/><circle class="r" cx="200" cy="70" r="9"/><circle class="m" cx="228" cy="68" r="9"/>
+              <circle class="t" cx="256" cy="78" r="9"/><circle class="t" cx="290" cy="100" r="9"/>
+            </g>
+            <polygon class="hx" points="130,32 145,23 160,32 160,50 145,59 130,50" stroke-width="3"/>
+            <polygon class="hx" points="160,32 175,23 190,32 190,50 175,59 160,50" stroke-width="3"/>
+            <polygon class="hx" points="222,128 236,120 250,128 250,145 236,153 222,145" stroke-width="3"/>
+            <line class="dash" x1="145" y1="60" x2="140" y2="96" stroke-width="2"/>
+            <line class="dash" x1="236" y1="120" x2="232" y2="80" stroke-width="2"/>
+            <text class="lbl" x="18" y="160">Aβ1–42</text>
+          </svg>
+          <span class="area"><span data-l="pt">Dinâmica molecular</span><span data-l="en">Molecular dynamics</span></span>
+          <p class="claim"><span data-l="pt">Sesquiterpenos da copaíba desfavorecem as conformações do Aβ1–42 que levam à agregação.</span><span data-l="en">Copaiba sesquiterpenes disfavour the Aβ1–42 conformations that lead to aggregation.</span></p>
+          <p><span data-l="pt">Docking e dinâmica molecular apontaram β-cariofileno e copaeno como moduladores do monômero.</span><span data-l="en">Docking and molecular dynamics identified β-caryophyllene and copaene as modulators of the monomer.</span></p>
+          <p class="src">J. Mol. Graph. Model. 2025 · <a href="https://pubmed.ncbi.nlm.nih.gov/41478158/" target="_blank" rel="noopener">PubMed</a></p>
+        </article>
+
+        <article class="f">
+          <svg class="il" viewBox="0 0 320 180" aria-hidden="true">
+            <text class="lbl" x="140" y="28">ΔG (kcal/mol)</text>
+            <line class="ln" x1="140" y1="40" x2="140" y2="160" stroke-width="2"/>
+            <rect class="r" x="140" y="48" width="150" height="26" rx="4"/>
+            <rect class="t" x="140" y="86" width="140" height="26" rx="4"/>
+            <rect class="m" x="140" y="124" width="108" height="26" rx="4"/>
+            <text class="lbl" x="130" y="66" text-anchor="end"><tspan data-l="pt">β-cariofileno</tspan><tspan data-l="en">β-caryophyllene</tspan></text>
+            <text class="lbl" x="130" y="104" text-anchor="end">α-bisabolol</text>
+            <text class="lbl" x="130" y="142" text-anchor="end"><tspan data-l="pt">maltol (ctrl)</tspan><tspan data-l="en">maltol (ctrl)</tspan></text>
+            <text class="val" x="282" y="66" text-anchor="end"><tspan data-l="pt">−6,1</tspan><tspan data-l="en">−6.1</tspan></text>
+            <text class="val" x="272" y="104" text-anchor="end"><tspan data-l="pt">−5,7</tspan><tspan data-l="en">−5.7</tspan></text>
+            <text class="val" x="240" y="142" text-anchor="end"><tspan data-l="pt">−4,4</tspan><tspan data-l="en">−4.4</tspan></text>
+          </svg>
+          <span class="area">Docking</span>
+          <p class="claim"><span data-l="pt">Constituintes de <i>Bauhinia ungulata</i> se ligam à catalase com mais afinidade que o controle.</span><span data-l="en">Constituents of <i>Bauhinia ungulata</i> bind catalase more strongly than the control.</span></p>
+          <p><span data-l="pt">O óleo também inibiu a acetilcolinesterase in silico e in vitro.</span><span data-l="en">The oil also inhibited acetylcholinesterase in silico and in vitro.</span></p>
+          <p class="src">Chem. Biodivers. 2023 · J. Oleo Sci. 2024</p>
+        </article>
+
+        <article class="f">
+          <svg class="il" viewBox="0 0 320 180" aria-hidden="true">
+            <path class="ts so" d="M118 18 C118 52 92 62 92 98 C92 146 146 166 196 154 C244 142 262 104 250 76 C240 54 212 50 196 66 C184 78 180 92 164 92 C150 92 146 62 148 18 Z" stroke-width="3"/>
+            <path class="tl" d="M128 30 C128 60 104 72 104 98 C104 136 148 154 194 143 C232 133 248 104 239 82 C231 64 212 62 200 75" fill="none" stroke-width="6" stroke-linecap="round"/>
+            <g transform="translate(262 120)">
+              <path class="rs" d="M0 0 C10 -26 46 -26 52 -2 C58 20 40 38 22 34 C14 32 14 22 22 18 C28 14 26 6 18 6 C10 6 6 12 0 0 Z"/>
+              <polygon class="hx" points="14,12 22,8 30,12 30,21 22,25 14,21" stroke-width="2.5"/>
+            </g>
+            <text class="lbl" x="250" y="172">MPO</text>
+          </svg>
+          <span class="area"><span data-l="pt">Farmacologia + docking</span><span data-l="en">Pharmacology + docking</span></span>
+          <p class="claim"><span data-l="pt">Óleo de licuri protege a mucosa gástrica, e o docking aponta a inibição da mieloperoxidase.</span><span data-l="en">Licuri oil protects the gastric mucosa, and docking points to myeloperoxidase inhibition.</span></p>
+          <p><span data-l="pt">Efeito antiulcerogênico em modelos agudos e crônico de úlcera. Projeto que coordenei.</span><span data-l="en">Anti-ulcer effect in acute and chronic ulcer models. A project I coordinated.</span></p>
+          <p class="src">Pharmacol. Res. – Nat. Prod. 2026</p>
+        </article>
+
+        <article class="f">
+          <svg class="il" viewBox="0 0 320 180" aria-hidden="true">
+            <circle class="ts so" cx="122" cy="90" r="66" stroke-width="2"/>
+            <circle class="rs so" cx="198" cy="90" r="66" stroke-width="2" fill-opacity=".75"/>
+            <text class="lbl" x="88" y="70" text-anchor="middle"><tspan data-l="pt">verme</tspan><tspan data-l="en">worm</tspan></text>
+            <text class="big t-txt" x="88" y="96" text-anchor="middle"><tspan data-l="pt">1.360</tspan><tspan data-l="en">1,360</tspan></text>
+            <text class="lbl" x="232" y="70" text-anchor="middle"><tspan data-l="pt">humano</tspan><tspan data-l="en">human</tspan></text>
+            <text class="big r-txt" x="232" y="96" text-anchor="middle"><tspan data-l="pt">4.019</tspan><tspan data-l="en">4,019</tspan></text>
+            <text class="big" x="160" y="96" text-anchor="middle">63</text>
+            <text class="lbl" x="160" y="122" text-anchor="middle">eEF-2</text>
+          </svg>
+          <span class="area"><span data-l="pt">Proteômica</span><span data-l="en">Proteomics</span></span>
+          <p class="claim"><span data-l="pt">O primeiro proteoma do modelo de Alzheimer CL2006 compartilha 63 proteínas alteradas com o cérebro humano.</span><span data-l="en">The first proteome of the CL2006 Alzheimer's model shares 63 altered proteins with the human brain.</span></p>
+          <p><span data-l="pt">O eEF-2 é hub nas duas redes e tem ~78,7% de identidade com a proteína humana.</span><span data-l="en">eEF-2 is a hub in both networks and shares ~78.7% identity with the human protein.</span></p>
+          <p class="src">J. Neurochem. 2025 · <a href="https://doi.org/10.1111/jnc.70152" target="_blank" rel="noopener">doi</a></p>
+        </article>
+
+        <article class="f">
+          <svg class="il" viewBox="0 0 320 180" aria-hidden="true">
+            <g class="edges" stroke-width="2">
+              <line x1="160" y1="90" x2="80" y2="50"/><line x1="160" y1="90" x2="70" y2="120"/><line x1="160" y1="90" x2="120" y2="150"/>
+              <line x1="160" y1="90" x2="210" y2="150"/><line x1="160" y1="90" x2="250" y2="110"/><line x1="160" y1="90" x2="240" y2="45"/>
+              <line x1="160" y1="90" x2="160" y2="28"/><line x1="80" y1="50" x2="40" y2="80"/><line x1="70" y1="120" x2="40" y2="80"/>
+              <line x1="250" y1="110" x2="290" y2="80"/><line x1="240" y1="45" x2="290" y2="80"/><line x1="210" y1="150" x2="270" y2="155"/>
+              <line x1="120" y1="150" x2="70" y2="120"/><line x1="160" y1="28" x2="240" y2="45"/>
+            </g>
+            <circle class="t" cx="80" cy="50" r="9"/><circle class="t" cx="70" cy="120" r="8"/><circle class="m" cx="120" cy="150" r="8"/>
+            <circle class="t" cx="210" cy="150" r="9"/><circle class="m" cx="250" cy="110" r="8"/><circle class="t" cx="240" cy="45" r="9"/>
+            <circle class="m" cx="160" cy="28" r="7"/><circle class="m" cx="40" cy="80" r="7"/><circle class="t" cx="290" cy="80" r="7"/><circle class="m" cx="270" cy="155" r="6"/>
+            <circle class="r" cx="160" cy="90" r="18"/>
+            <text class="lbl" x="184" y="84">α-syn</text>
+          </svg>
+          <span class="area"><span data-l="pt">Proteômica</span><span data-l="en">Proteomics</span></span>
+          <p class="claim"><span data-l="pt">Um modelo de Parkinson em <i>C. elegans</i> reproduz vias conservadas da doença humana.</span><span data-l="en">A <i>C. elegans</i> Parkinson's model reproduces conserved pathways of the human disease.</span></p>
+          <p><span data-l="pt">Proteômica label-free da linhagem OW13, que expressa α-sinucleína, cruzada com dados humanos.</span><span data-l="en">Label-free proteomics of the α-synuclein strain OW13, cross-referenced with human data.</span></p>
+          <p class="src">bioRxiv 2026 (preprint)</p>
+        </article>
+
+        <article class="f">
+          <svg class="il" viewBox="0 0 320 180" aria-hidden="true">
+            <g id="heat"></g>
+            <path class="worm" d="M30 150 C70 120 100 160 140 140 S200 110 220 130" fill="none" stroke-width="16" stroke-linecap="round"/>
+            <text class="lbl" x="238" y="140"><tspan data-l="pt">estresse</tspan><tspan data-l="en">stress</tspan></text>
+          </svg>
+          <span class="area"><span data-l="pt">Proteômica</span><span data-l="en">Proteomics</span></span>
+          <p class="claim"><span data-l="pt">Suplementação nutricional protege <i>C. elegans</i> sob estresse e alteração do desenvolvimento.</span><span data-l="en">Nutritional supplementation protects <i>C. elegans</i> under stress and developmental disruption.</span></p>
+          <p><span data-l="pt">Comportamento e proteômica medem o benefício da suplementação.</span><span data-l="en">Behaviour and proteomics measure the benefit of supplementation.</span></p>
+          <p class="src">2025 · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12311710/" target="_blank" rel="noopener">PMC</a></p>
+        </article>
+
+        <article class="f">
+          <svg class="il" viewBox="0 0 320 180" aria-hidden="true">
+            <g>
+              <rect class="ts" x="16" y="30" width="88" height="110" rx="8"/>
+              <rect class="ts" x="116" y="30" width="88" height="110" rx="8"/>
+              <rect class="ts" x="216" y="30" width="88" height="110" rx="8"/>
+            </g>
+            <g class="t"><circle cx="40" cy="60" r="11"/><circle cx="72" cy="56" r="9"/><circle cx="58" cy="90" r="12"/><circle cx="84" cy="112" r="9"/><circle cx="36" cy="118" r="10"/></g>
+            <g class="t"><circle cx="140" cy="62" r="10"/><circle cx="172" cy="58" r="8"/><circle cx="158" cy="92" r="11"/><circle cx="184" cy="114" r="8"/><circle cx="136" cy="116" r="9"/></g>
+            <g class="r"><circle cx="240" cy="62" r="8"/><circle cx="272" cy="58" r="7"/><circle cx="258" cy="92" r="9"/><circle cx="284" cy="114" r="7"/><circle cx="236" cy="116" r="8"/></g>
+            <text class="lbl" x="60" y="164" text-anchor="middle">t = 0</text>
+            <text class="lbl" x="160" y="164" text-anchor="middle"><tspan data-l="pt">1 ano</tspan><tspan data-l="en">1 year</tspan></text>
+            <text class="lbl" x="260" y="164" text-anchor="middle"><tspan data-l="pt">2 anos</tspan><tspan data-l="en">2 years</tspan></text>
+            <text class="lbl" x="160" y="20" text-anchor="middle">4 °C</text>
+          </svg>
+          <span class="area"><span data-l="pt">Nanotecnologia</span><span data-l="en">Nanotechnology</span></span>
+          <p class="claim"><span data-l="pt">Uma nanoemulsão de copaíba com pouco surfactante continua estável dois anos depois.</span><span data-l="en">A low-surfactant copaiba nanoemulsion stays stable two years later.</span></p>
+          <p><span data-l="pt">Resistiu a centrifugação e ciclos térmicos. Em <i>C. elegans</i>, só a maior dose foi tóxica.</span><span data-l="en">It withstood centrifugation and thermal cycles. In <i>C. elegans</i>, only the top dose was toxic.</span></p>
+          <p class="src">ACS Omega 2024 · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11411554/" target="_blank" rel="noopener">PMC</a></p>
+        </article>
+
+        <article class="f">
+          <svg class="il" viewBox="0 0 320 180" aria-hidden="true">
+            <path class="worm" d="M30 110 C80 60 130 140 180 100 S260 60 292 90" fill="none" stroke-width="30" stroke-linecap="round"/>
+            <path class="gut" d="M30 110 C80 60 130 140 180 100 S260 60 292 90" fill="none" stroke-width="6" stroke-linecap="round"/>
+            <g class="r"><circle cx="70" cy="86" r="4"/><circle cx="104" cy="96" r="4"/><circle cx="150" cy="112" r="4"/><circle cx="198" cy="92" r="4"/><circle cx="240" cy="76" r="4"/></g>
+            <g class="r" opacity=".55"><circle cx="60" cy="34" r="4"/><circle cx="120" cy="30" r="5"/><circle cx="200" cy="38" r="4"/><circle cx="260" cy="140" r="5"/><circle cx="100" cy="156" r="4"/><circle cx="170" cy="160" r="4"/></g>
+            <text class="lbl" x="220" y="30">NP</text>
+          </svg>
+          <span class="area"><span data-l="pt">Nanotoxicologia</span><span data-l="en">Nanotoxicology</span></span>
+          <p class="claim"><span data-l="pt"><i>C. elegans</i> como plataforma de predição para estratégias com nanotecnologia.</span><span data-l="en"><i>C. elegans</i> as a prediction platform for nanotechnology strategies.</span></p>
+          <p><span data-l="pt">Revisão dos desafios analíticos de testar nanomateriais no nematoide. Meu trabalho mais citado.</span><span data-l="en">A review of the analytical challenges of testing nanomaterials in the nematode. My most-cited paper.</span></p>
+          <p class="src">Toxics 2023</p>
+        </article>
+
+        <article class="f">
+          <svg class="il" viewBox="0 0 320 180" aria-hidden="true">
+            <g id="bilayer"></g>
+            <rect class="r" x="132" y="56" width="12" height="68" rx="6"/>
+            <rect class="r" x="176" y="56" width="12" height="68" rx="6"/>
+            <line class="ink" x1="144" y1="160" x2="176" y2="160" stroke-width="2"/>
+            <line class="ink" x1="144" y1="154" x2="144" y2="166" stroke-width="2"/><line class="ink" x1="176" y1="154" x2="176" y2="166" stroke-width="2"/>
+            <text class="lbl" x="188" y="166"><tspan data-l="pt">~4,4 nm</tspan><tspan data-l="en">~4.4 nm</tspan></text>
+            <text class="lbl" x="18" y="22"><tspan data-l="pt">melitina</tspan><tspan data-l="en">melittin</tspan></text>
+          </svg>
+          <span class="area"><span data-l="pt">Oncologia</span><span data-l="en">Oncology</span></span>
+          <p class="claim"><span data-l="pt">Veneno de abelha é tóxico para células de câncer de mama triplo-negativo.</span><span data-l="en">Bee venom is toxic to triple-negative breast cancer cells.</span></p>
+          <p><span data-l="pt">A melitina abre poros de ~4,4 nm na membrana. Testado em MDA-MB-231 e em <i>C. elegans</i>. Projeto que coordenei.</span><span data-l="en">Melittin opens ~4.4 nm membrane pores. Tested in MDA-MB-231 cells and <i>C. elegans</i>. A project I coordinated.</span></p>
+          <p class="src">Anti-Cancer Agents Med. Chem. 2024</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section class="block" id="noticias">
+    <div class="wrap">
+      <div class="head">
+        <h2><span data-l="pt">Notícias</span><span data-l="en">News</span></h2>
+        <p><span data-l="pt">A pesquisa na imprensa e nos canais da UFPE.</span><span data-l="en">The research in the press and on UFPE's channels.</span></p>
+      </div>
+      <div class="news">
+        <a class="n feat" href="https://www.diariodepernambuco.com.br/vida-urbana/2026/01/11705969-pesquisa-da-ufpe-oleo-de-copaiba-pode-virar-medicamento-para-prevencao-de-alzheimer.html" target="_blank" rel="noopener">
+          <div class="nimg">
+            <img id="dp-photo" src="images/noticia-copaiba.jpg" alt="Iverson Conrado e Priscila Gubert no laboratório da UFPE" loading="lazy">
+            <svg class="il fallback" viewBox="0 0 320 180" aria-hidden="true">
+              <rect class="ts" x="0" y="0" width="320" height="180"/>
+              <polygon class="hx" points="110,70 135,56 160,70 160,98 135,112 110,98" stroke-width="5"/>
+              <polygon class="hx" points="160,70 185,56 210,70 210,98 185,112 160,98" stroke-width="5"/>
+            </svg>
+          </div>
+          <div class="nbody">
+            <p class="nsrc">Diario de Pernambuco · <span data-l="pt">25 jan. 2026</span><span data-l="en">25 Jan 2026</span></p>
+            <h3>Pesquisa da UFPE: óleo de copaíba pode virar medicamento para prevenção de Alzheimer</h3>
+            <p><span data-l="pt">Simulações computacionais mostraram que cariofileno e copaeno, presentes no óleo de copaíba, interferem na formação de placas de beta-amiloide.</span><span data-l="en">Computer simulations showed that caryophyllene and copaene, found in copaiba oil, interfere with amyloid-beta plaque formation.</span></p>
+            <p class="credit"><span data-l="pt">Foto: Crysli Viana/DP Foto</span><span data-l="en">Photo: Crysli Viana/DP Foto</span></p>
+          </div>
+        </a>
+        <a class="n" href="https://www.ufpe.br/ascom/noticias/-/asset_publisher/O3Odar12gQTr/content/software-simplifica-e-acelera-analises-computacionais-em-pesquisas-com-proteinas-e-medicamentos/40615" target="_blank" rel="noopener">
+          <div class="nimg">
+            <img src="images/noticia-dynamispectra.jpg" style="object-position:50% 18%" alt="Foto da notícia da UFPE sobre o DynamiSpectra" loading="lazy" onerror="this.hidden=true">
+            <svg class="il" viewBox="0 0 320 180" aria-hidden="true">
+              <rect class="ts" x="0" y="0" width="320" height="180"/>
+              <rect class="sf" x="40" y="28" width="240" height="124" rx="10"/>
+              <line class="ln" x1="64" y1="128" x2="256" y2="128" stroke-width="2"/>
+              <line class="ln" x1="64" y1="48" x2="64" y2="128" stroke-width="2"/>
+              <path class="rl" d="M64 120 C80 70 92 96 108 84 S140 78 156 90 S196 74 214 82 S244 78 256 80" fill="none" stroke-width="4" stroke-linecap="round"/>
+              <path class="tl2" d="M64 124 C84 112 100 118 120 110 S160 112 180 104 S228 108 256 102" fill="none" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="nbody">
+            <p class="nsrc">UFPE · <span data-l="pt">29 ago. 2025</span><span data-l="en">29 Aug 2025</span></p>
+            <h3>Software simplifica e acelera análises computacionais em pesquisas com proteínas e medicamentos</h3>
+            <p><span data-l="pt">A UFPE apresenta o DynamiSpectra, pacote e plataforma web para análise de dinâmica molecular.</span><span data-l="en">UFPE presents DynamiSpectra, a package and web platform for molecular dynamics analysis.</span></p>
+          </div>
+        </a>
+        <a class="n" href="https://www.ufpe.br/cas/noticias/-/asset_publisher/PaJ9N3Nidx1A/content/pesquisa-inedita-identifica-semelhancas-moleculares-entre-modelo-animal-e-pacientes-com-alzheimer/40615" target="_blank" rel="noopener">
+          <div class="nimg">
+            <img src="images/noticia-alzheimer.jpg" style="object-position:50% 18%" alt="Foto da notícia da UFPE sobre o modelo de Alzheimer em C. elegans" loading="lazy" onerror="this.hidden=true">
+            <svg class="il" viewBox="0 0 320 180" aria-hidden="true">
+              <rect class="rs" x="0" y="0" width="320" height="180"/>
+              <path class="worm2" d="M40 120 C80 70 120 150 160 110 S240 60 280 100" fill="none" stroke-width="22" stroke-linecap="round"/>
+              <circle class="r" cx="160" cy="110" r="10"/>
+              <text class="lbl" x="176" y="140">eEF-2</text>
+            </svg>
+          </div>
+          <div class="nbody">
+            <p class="nsrc">UFPE · <span data-l="pt">18 jul. 2025</span><span data-l="en">18 Jul 2025</span></p>
+            <h3>Pesquisa inédita identifica semelhanças moleculares entre modelo animal e pacientes com Alzheimer</h3>
+            <p><span data-l="pt">O proteoma do modelo CL2006 de <i>C. elegans</i> compartilha assinaturas moleculares com o cérebro de pacientes.</span><span data-l="en">The proteome of the CL2006 <i>C. elegans</i> model shares molecular signatures with patients' brains.</span></p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section class="block" id="publicacoes">
+    <div class="wrap">
+      <div class="head">
+        <h2><span data-l="pt">Publicações</span><span data-l="en">Publications</span></h2>
+        <p><span data-l="pt">14 artigos em periódicos, 1 preprint e 10 capítulos de livro. Marcado: primeiro autor.</span><span data-l="en">14 journal articles, 1 preprint and 10 book chapters. Tagged: first author.</span></p>
+      </div>
+      <div class="filters" role="group" aria-label="Filtrar publicações">
+        <button type="button" id="flt-all" data-f="all" aria-pressed="true"><span data-l="pt">Todas</span><span data-l="en">All</span></button>
+        <button type="button" id="flt-md" data-f="md" aria-pressed="false"><span data-l="pt">In silico e software</span><span data-l="en">In silico and software</span></button>
+        <button type="button" id="flt-omics" data-f="omics" aria-pressed="false"><span data-l="pt">Proteômica</span><span data-l="en">Proteomics</span></button>
+        <button type="button" id="flt-neuro" data-f="neuro" aria-pressed="false"><span data-l="pt">Neurodegeneração</span><span data-l="en">Neurodegeneration</span></button>
+        <button type="button" id="flt-nat" data-f="nat" aria-pressed="false"><span data-l="pt">Produtos naturais e nano</span><span data-l="en">Natural products and nano</span></button>
+      </div>
+      <ol class="pubs" id="pubs">
+        <li data-t="omics neuro"><span class="y">2026</span><div><p class="t"><a href="https://www.biorxiv.org/search/Label-Free%20Proteomics%20Synuclein%20Caenorhabditis%20elegans%20Parkinson" target="_blank" rel="noopener">Label-Free Proteomics of α-Synuclein-Expressing <i>Caenorhabditis elegans</i> Model Uncovers Conserved Pathophysiological Pathways in Parkinson's Disease</a><span class="me">1º autor</span></p><p class="j">bioRxiv (preprint) · <a class="go" href="https://www.biorxiv.org/search/Label-Free%20Proteomics%20Synuclein%20Caenorhabditis%20elegans%20Parkinson" target="_blank" rel="noopener"><span data-l="pt">Ver publicação</span><span data-l="en">View paper</span></a></p></div></li>
+        <li data-t="md nat"><span class="y">2026</span><div><p class="t"><a href="https://www.sciencedirect.com/science/article/pii/S2950199726000352" target="_blank" rel="noopener">Gastroprotection and gastric healing activity potential of a fixed oil extract from <i>Syagrus coronata</i> (Mart.) Becc almonds</a></p><p class="j"><em>Pharmacological Research – Natural Products</em> 1, 100522 · <a class="go" href="https://www.sciencedirect.com/science/article/pii/S2950199726000352" target="_blank" rel="noopener"><span data-l="pt">Ver publicação</span><span data-l="en">View paper</span></a></p></div></li>
+        <li data-t="omics neuro"><span class="y">2025</span><div><p class="t"><a href="https://doi.org/10.1111/jnc.70152" target="_blank" rel="noopener">Label-Free Proteomic Profiling of the dvIs2 (CL2006) <i>C. elegans</i> Alzheimer's Disease Model Reveals Conserved Molecular Signatures Shared With the Human AD Brain</a><span class="me">1º autor</span></p><p class="j"><em>Journal of Neurochemistry</em> 169 · <a class="go" href="https://doi.org/10.1111/jnc.70152" target="_blank" rel="noopener"><span data-l="pt">Ver publicação</span><span data-l="en">View paper</span></a></p></div></li>
+        <li data-t="md"><span class="y">2025</span><div><p class="t"><a href="https://doi.org/10.1021/acs.jcim.5c01270" target="_blank" rel="noopener">DynamiSpectra: A Python Software Package and Web Platform for Molecular Dynamics Data Analysis in Computational Biology</a><span class="me">1º autor</span></p><p class="j"><em>Journal of Chemical Information and Modeling</em> · <a class="go" href="https://doi.org/10.1021/acs.jcim.5c01270" target="_blank" rel="noopener"><span data-l="pt">Ver publicação</span><span data-l="en">View paper</span></a></p></div></li>
+        <li data-t="md neuro"><span class="y">2025</span><div><p class="t"><a href="https://pubmed.ncbi.nlm.nih.gov/41478158/" target="_blank" rel="noopener">Computational insights into terpene-induced modulation of Amyloid-β peptide (Aβ1-42) aggregation-favoring conformations</a><span class="me">1º autor</span></p><p class="j"><em>Journal of Molecular Graphics &amp; Modelling</em> 109268 · <a class="go" href="https://pubmed.ncbi.nlm.nih.gov/41478158/" target="_blank" rel="noopener"><span data-l="pt">Ver publicação</span><span data-l="en">View paper</span></a></p></div></li>
+        <li data-t="neuro nat"><span class="y">2025</span><div><p class="t"><a href="https://pubmed.ncbi.nlm.nih.gov/40409375/" target="_blank" rel="noopener">Nutraceutical approaches for Autism Spectrum Disorder treatment</a></p><p class="j"><em>Behavioural Brain Research</em> 492, 115653 · <a class="go" href="https://pubmed.ncbi.nlm.nih.gov/40409375/" target="_blank" rel="noopener"><span data-l="pt">Ver publicação</span><span data-l="en">View paper</span></a></p></div></li>
+        <li data-t="omics nat"><span class="y">2025</span><div><p class="t"><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12311710/" target="_blank" rel="noopener">Nutritional Supplementation Benefits in <i>Caenorhabditis elegans</i> under Developmental Disruption and Stress Conditions</a></p><p class="j">v. 10, 31313–31330 · <a class="go" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12311710/" target="_blank" rel="noopener"><span data-l="pt">Ver publicação</span><span data-l="en">View paper</span></a></p></div></li>
+        <li data-t="nat"><span class="y">2024</span><div><p class="t"><a href="https://www.eurekaselect.com/article/139209" target="_blank" rel="noopener">Bee Venom Toxic Effect on MDA-MB-231 Breast Cancer Cells and <i>Caenorhabditis elegans</i></a></p><p class="j"><em>Anti-Cancer Agents in Medicinal Chemistry</em> 24, 798–811 · <a class="go" href="https://www.eurekaselect.com/article/139209" target="_blank" rel="noopener"><span data-l="pt">Ver publicação</span><span data-l="en">View paper</span></a></p></div></li>
+        <li data-t="md neuro nat"><span class="y">2024</span><div><p class="t"><a href="https://pubmed.ncbi.nlm.nih.gov/39085083/" target="_blank" rel="noopener">Evaluation of <i>Bauhinia ungulata</i> Essential Oil as a New Acetylcholinesterase Inhibitor from an in silico and in vitro Perspective in the Northern Amazon of Brazil</a></p><p class="j"><em>Journal of Oleo Science</em> 73, 1091–1104 · <a class="go" href="https://pubmed.ncbi.nlm.nih.gov/39085083/" target="_blank" rel="noopener"><span data-l="pt">Ver publicação</span><span data-l="en">View paper</span></a></p></div></li>
+        <li data-t="neuro nat"><span class="y">2024</span><div><p class="t"><a href="https://doi.org/10.1080/15287394.2024.2338431" target="_blank" rel="noopener"><i>Syagrus coronata</i> fixed oil prevents rotenone-induced movement disorders and oxidative stress in <i>Drosophila melanogaster</i></a></p><p class="j"><em>J. Toxicology and Environmental Health, Part A</em> 87, 497–515 · <a class="go" href="https://doi.org/10.1080/15287394.2024.2338431" target="_blank" rel="noopener"><span data-l="pt">Ver publicação</span><span data-l="en">View paper</span></a></p></div></li>
+        <li data-t="nat"><span class="y">2024</span><div><p class="t"><a href="https://doi.org/10.2174/0122103155288344240104071427" target="_blank" rel="noopener"><i>Caenorhabditis elegans</i> as an Outstanding Model to Explore Flavonoids Under Stress Conditions</a></p><p class="j"><em>The Natural Products Journal</em> 14 · <a class="go" href="https://doi.org/10.2174/0122103155288344240104071427" target="_blank" rel="noopener"><span data-l="pt">Ver publicação</span><span data-l="en">View paper</span></a></p></div></li>
+        <li data-t="nat"><span class="y">2024</span><div><p class="t"><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11411554/" target="_blank" rel="noopener">Synthesis and Physicochemical Stability of a Copaiba Balsam Oil (<i>Copaifera</i> sp.) Nanoemulsion and Prospecting of Toxicological Effects on the Nematode <i>Caenorhabditis elegans</i></a><span class="me">1º autor</span></p><p class="j"><em>ACS Omega</em> 9, 39100–39118 · <a class="go" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11411554/" target="_blank" rel="noopener"><span data-l="pt">Ver publicação</span><span data-l="en">View paper</span></a></p></div></li>
+        <li data-t="neuro nat"><span class="y">2024</span><div><p class="t"><a href="https://www.sciencedirect.com/science/article/abs/pii/S2950199724000338" target="_blank" rel="noopener">The antioxidant efficacy of <i>Syagrus coronata</i> fixed oil in reverting rotenone-induced neurotoxicity in mice</a></p><p class="j"><em>Pharmacological Research – Natural Products</em> 3, 100045 · <a class="go" href="https://www.sciencedirect.com/science/article/abs/pii/S2950199724000338" target="_blank" rel="noopener"><span data-l="pt">Ver publicação</span><span data-l="en">View paper</span></a></p></div></li>
+        <li data-t="md nat"><span class="y">2023</span><div><p class="t"><a href="https://doi.org/10.1002/cbdv.202301536" target="_blank" rel="noopener">In Vitro and In Silico Antioxidant Activity and Molecular Characterization of <i>Bauhinia ungulata</i> Essential Oil</a></p><p class="j"><em>Chemistry &amp; Biodiversity</em> e202301536 · <a class="go" href="https://doi.org/10.1002/cbdv.202301536" target="_blank" rel="noopener"><span data-l="pt">Ver publicação</span><span data-l="en">View paper</span></a></p></div></li>
+        <li data-t="nat"><span class="y">2023</span><div><p class="t"><a href="https://doi.org/10.3390/toxics11030239" target="_blank" rel="noopener"><i>Caenorhabditis elegans</i> as a Prediction Platform for Nanotechnology-Based Strategies: Insights on Analytical Challenges</a></p><p class="j"><em>Toxics</em> 11, 239 · <a class="go" href="https://doi.org/10.3390/toxics11030239" target="_blank" rel="noopener"><span data-l="pt">Ver publicação</span><span data-l="en">View paper</span></a></p></div></li>
+      </ol>
+      <p class="pubs-note"><span data-l="pt">Capítulos de livro (2022–2024) e lista completa no</span><span data-l="en">Book chapters (2022–2024) and the full record on</span> <a href="http://lattes.cnpq.br/4119148962527564" target="_blank" rel="noopener">Lattes</a> <span data-l="pt">e no</span><span data-l="en">and</span> <a href="https://orcid.org/0000-0003-0524-8913" target="_blank" rel="noopener">ORCID</a>.</p>
+    </div>
+  </section>
+
+  <!-- METHODS -->
+  <section class="block" id="metodos">
+    <div class="wrap">
+      <div class="head">
+        <h2><span data-l="pt">Métodos que domino</span><span data-l="en">Methods I use</span></h2>
+      </div>
+      <div class="methods">
+        <div><h3><span data-l="pt">Simulação e modelagem</span><span data-l="en">Simulation and modelling</span></h3>
+          <ul><li><span data-l="pt">Dinâmica molecular (GROMACS)</span><span data-l="en">Molecular dynamics (GROMACS)</span></li><li><span data-l="pt">Docking receptor–ligante e receptor–peptídeo</span><span data-l="en">Receptor–ligand and receptor–peptide docking</span></li><li><span data-l="pt">Interações intermoleculares por redes complexas</span><span data-l="en">Intermolecular interactions via complex networks</span></li><li><span data-l="pt">Predição de toxicidade in silico</span><span data-l="en">In silico toxicity prediction</span></li></ul></div>
+        <div><h3><span data-l="pt">IA para design de peptídeos</span><span data-l="en">AI for peptide design</span></h3>
+          <ul><li><span data-l="pt">Algoritmos genéticos</span><span data-l="en">Genetic algorithms</span></li><li><span data-l="pt">Modelos generativos e Transformers</span><span data-l="en">Generative models and Transformers</span></li><li><span data-l="pt">Fine-tuning LoRA de modelos de linguagem de proteínas</span><span data-l="en">LoRA fine-tuning of protein language models</span></li><li>Machine learning</li></ul></div>
+        <div><h3><span data-l="pt">Ômicas</span><span data-l="en">Omics</span></h3>
+          <ul><li><span data-l="pt">Proteômica label-free</span><span data-l="en">Label-free proteomics</span></li><li><span data-l="pt">Transcriptômica (RNA-seq)</span><span data-l="en">Transcriptomics (RNA-seq)</span></li><li><span data-l="pt">Meta-análise de dados GEO</span><span data-l="en">GEO data meta-analysis</span></li><li><span data-l="pt">Redes de interação proteína–proteína</span><span data-l="en">Protein–protein interaction networks</span></li></ul></div>
+        <div><h3><span data-l="pt">Programação</span><span data-l="en">Programming</span></h3>
+          <ul><li>Python</li><li><span data-l="pt">Pacotes e plataformas web científicas</span><span data-l="en">Scientific packages and web platforms</span></li><li><span data-l="pt">Automação de pipelines de análise</span><span data-l="en">Analysis pipeline automation</span></li></ul></div>
+        <div><h3><span data-l="pt">Bancada</span><span data-l="en">Wet lab</span></h3>
+          <ul><li><i>Caenorhabditis elegans</i></li><li><span data-l="pt">Microscopia de fluorescência (agregados, expressão, morfologia neuronal)</span><span data-l="en">Fluorescence microscopy (aggregates, expression, neuronal morphology)</span></li><li><span data-l="pt">Testes moleculares</span><span data-l="en">Molecular testing</span></li></ul></div>
+        <div><h3><span data-l="pt">Comunicação científica</span><span data-l="en">Science communication</span></h3>
+          <ul><li>Medical writing</li><li><span data-l="pt">Revisão por pares</span><span data-l="en">Peer review</span></li><li><span data-l="pt">Cursos e divulgação</span><span data-l="en">Teaching and outreach</span></li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MORE -->
+  <section class="block" id="mais">
+    <div class="wrap">
+      <div class="head">
+        <h2><span data-l="pt">Ensino, liderança e divulgação</span><span data-l="en">Teaching, leadership and outreach</span></h2>
+      </div>
+      <div class="more">
+        <div><h3><span data-l="pt">Liderança</span><span data-l="en">Leadership</span></h3>
+          <ul>
+            <li><span data-l="pt">Coordenador da Liga Acadêmica de Estudos em <i>C. elegans</i> (LAECE/UFPE)</span><span data-l="en">Coordinator of the Academic League for <i>C. elegans</i> Studies (LAECE/UFPE)</span> <span>· 2020–</span></li>
+            <li><span data-l="pt">Organizador do I e II Simpósio Pernambucano de <i>C. elegans</i></span><span data-l="en">Organiser of the 1st and 2nd Pernambuco <i>C. elegans</i> Symposium</span> <span>· 2021</span></li>
+            <li><span data-l="pt">Pesquisador colaborador no Programa Futuras Cientistas</span><span data-l="en">Collaborating researcher, Future Women Scientists programme</span> <span>· 2026</span></li>
+          </ul></div>
+        <div><h3><span data-l="pt">Cursos ministrados</span><span data-l="en">Courses taught</span></h3>
+          <ul>
+            <li><span data-l="pt">Dinâmica Molecular em Biologia Computacional: da Teoria à Prática</span><span data-l="en">Molecular Dynamics in Computational Biology: from Theory to Practice</span> <span>· 2025</span></li>
+            <li><span data-l="pt">Neuroproteômica: fundamentos e análise de dados ômicos</span><span data-l="en">Neuroproteomics: fundamentals and omics data analysis</span> <span>· 2025</span></li>
+            <li><span data-l="pt">Nanobiossensores: conceitos e aplicações</span><span data-l="en">Nanobiosensors: concepts and applications</span> <span>· 2020</span></li>
+          </ul></div>
+        <div><h3><span data-l="pt">Reconhecimentos</span><span data-l="en">Recognition</span></h3>
+          <ul>
+            <li><span data-l="pt">Menção honrosa, I Simpósio de Genética Humana</span><span data-l="en">Honourable mention, 1st Human Genetics Symposium</span> <span>· 2024</span></li>
+            <li><span data-l="pt">Menção honrosa, III Congresso de Neurofisiologia</span><span data-l="en">Honourable mention, 3rd Neurophysiology Congress</span> <span>· 2024</span></li>
+            <li><span data-l="pt">Revisor de 4 periódicos internacionais</span><span data-l="en">Reviewer for 4 international journals</span> <span>· 2024–</span></li>
+          </ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contato">
+    <div class="wrap">
+      <h2><span data-l="pt">Tem um projeto de P&amp;D ou uma colaboração em mente?</span><span data-l="en">Have an R&amp;D project or a collaboration in mind?</span></h2>
+      <p><span data-l="pt">Consultoria em dinâmica molecular, design de peptídeos, análise ômica e redação científica. Respondo por e-mail.</span><span data-l="en">Consulting in molecular dynamics, peptide design, omics analysis and scientific writing. I reply by email.</span></p>
+      <div class="mail">
+        <a href="mailto:iverson.coonrado@gmail.com" id="email">iverson.coonrado@gmail.com</a>
+        <button class="copy" type="button" data-copy="iverson.coonrado@gmail.com"><span data-l="pt">Copiar e-mail</span><span data-l="en">Copy email</span></button>
+      </div>
+      <div class="links">
+        <a class="btn" href="https://br.linkedin.com/in/iverson-conrado-6633bb180" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/Conradoou" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://orcid.org/0000-0003-0524-8913" target="_blank" rel="noopener">ORCID 0000-0003-0524-8913</a>
+        <a class="btn" href="http://lattes.cnpq.br/4119148962527564" target="_blank" rel="noopener">Lattes</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Iverson Conrado Bezerra · Recife, PE</span>
+    <span><span data-l="pt">Atualizado em outubro de 2026</span><span data-l="en">Updated October 2026</span></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* ---------- language ---------- */
+  var root=document.documentElement;
+  function setLang(l){
+    root.classList.toggle('l-en', l==='en');
+    root.lang = l==='en' ? 'en' : 'pt-BR';
+    document.querySelectorAll('.lang button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.set===l)); });
+    document.querySelectorAll('.me').forEach(function(m){ m.textContent = l==='en' ? 'first author' : '1º autor'; });
+    try{ localStorage.setItem('lang', l); }catch(e){}
+  }
+  var saved=null; try{ saved=localStorage.getItem('lang'); }catch(e){}
+  setLang(saved || ((navigator.language||'pt').toLowerCase().indexOf('pt')===0 ? 'pt' : 'en'));
+  document.querySelectorAll('.lang button').forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.set); }); });
+
+  /* ---------- theme ---------- */
+  function curTheme(){
+    var t=root.getAttribute('data-theme');
+    if(t==='dark'||t==='light') return t;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  var savedTheme=null; try{ savedTheme=localStorage.getItem('theme'); }catch(e){}
+  root.setAttribute('data-theme', savedTheme || curTheme());
+  var tbtn=document.getElementById('theme-btn');
+  function labelTheme(){ tbtn.setAttribute('aria-pressed', String(curTheme()==='dark')); }
+  labelTheme();
+  tbtn.addEventListener('click', function(){
+    var next=curTheme()==='dark'?'light':'dark';
+    root.setAttribute('data-theme', next);
+    try{ localStorage.setItem('theme', next); }catch(e){}
+    labelTheme();
+  });
+
+  /* ---------- small generated illustrations ---------- */
+  var NS='http://www.w3.org/2000/svg';
+  function el(tag, attrs, parent){ var e=document.createElementNS(NS,tag); for(var k in attrs) e.setAttribute(k,attrs[k]); parent.appendChild(e); return e; }
+  var heat=document.getElementById('heat');
+  if(heat){
+    var hs=11; // proteome heatmap: rows = proteins, cols = conditions
+    for(var r=0;r<6;r++) for(var c=0;c<16;c++){
+      var v=Math.sin(r*1.7+c*0.9)*Math.cos(c*0.37+r)*0.5+0.5;
+      el('rect',{x:30+c*(hs+5), y:18+r*(hs+5), width:hs, height:hs, rx:2, 'class': v>0.55?'r':'t', 'fill-opacity': (0.25+Math.abs(v-0.5)*1.5).toFixed(2)}, heat);
+    }
+  }
+  var bl=document.getElementById('bilayer');
+  if(bl){
+    [62,118].forEach(function(y,row){
+      for(var x=22;x<300;x+=16){
+        if(x>128 && x<192) continue;            // the pore
+        el('line',{x1:x, y1:y, x2:x, y2:row? y-22 : y+22, 'class':'tail', 'stroke-width':3}, bl);
+        el('circle',{cx:x, cy:y, r:6, 'class':'head'}, bl);
+      }
+    });
+    // lipids curving into the toroidal pore
+    [[128,62],[192,62],[128,118],[192,118]].forEach(function(p){ el('circle',{cx:p[0]+(p[0]<160?4:-4), cy:p[1]+(p[1]<90?8:-8), r:6, 'class':'head'}, bl); });
+  }
+
+  /* news photo: local file first, then the newspaper's copy, then an illustration */
+  var ph=document.getElementById('dp-photo');
+  if(ph){
+    var tries=['https://www.diariodepernambuco.com.br/_midias/jpg/2026/01/26/600x400/1_whatsapp_image_2026_01_26_at_18_57_08-837601.jpeg'];
+    ph.addEventListener('error', function(){ if(tries.length) ph.src=tries.shift(); else ph.hidden=true; });
+    if(ph.complete && ph.naturalWidth===0) ph.dispatchEvent(new Event('error'));
+  }
+
+  /* ---------- copy buttons ---------- */
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var txt=btn.dataset.copy, label=btn.innerHTML;
+      function done(ok){
+        var en=root.classList.contains('l-en');
+        btn.textContent = ok ? (en?'Copied':'Copiado') : (en?'Select and copy':'Selecione e copie');
+        setTimeout(function(){ btn.innerHTML=label; }, 1600);
+      }
+      try{
+        navigator.clipboard.writeText(txt).then(function(){done(true)}, function(){ selectNear(btn); done(false); });
+      }catch(e){ selectNear(btn); done(false); }
+    });
+  });
+  function selectNear(btn){
+    var el=btn.parentElement.querySelector('code, a'); if(!el) return;
+    var r=document.createRange(); r.selectNodeContents(el); var s=getSelection(); s.removeAllRanges(); s.addRange(r);
+  }
+
+  /* ---------- publication filter ---------- */
+  var fbtns=document.querySelectorAll('.filters button');
+  fbtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      var f=b.dataset.f;
+      fbtns.forEach(function(x){ x.setAttribute('aria-pressed', String(x===b)); });
+      document.querySelectorAll('#pubs li').forEach(function(li){
+        li.hidden = !(f==='all' || li.dataset.t.split(' ').indexOf(f)>-1);
+      });
+    });
+  });
+
+  /* ---------- Aβ1–42 coarse-grained toy trajectory ---------- */
+  var SEQ='DAEFRHDSGYEVHHQKLVFFAEDVGSNKGAIIGLMVGGVVIA';
+  var HYD='AVILMFW', CHG='DEKR';
+  function cls(a){ return HYD.indexOf(a)>-1 ? 'h' : (CHG.indexOf(a)>-1 ? 'c' : 'p'); }
+  document.getElementById('seq').innerHTML = SEQ.split('').map(function(a,i){
+    return '<span class="'+cls(a)+'" title="'+a+(i+1)+'">'+a+'</span>';
+  }).join('');
+
+  var cv=document.getElementById('traj'), ctx=cv.getContext('2d');
+  var W=cv.width, H=cv.height, N=SEQ.length;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // deterministic RNG
+  var seed=7; function rnd(){ seed=(seed*16807)%2147483647; return seed/2147483647; }
+  function gauss(){ var u=rnd()||1e-9, v=rnd(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+
+  // reference: β-hairpin-like fold (strands 10–22 and 29–42, turn 23–28), as in fibril-favouring states
+  var ref=[], i;
+  for(i=0;i<N;i++){
+    var x,y,z;
+    if(i<9){ x=-4+ i*0.55; y=4.2+Math.sin(i*1.3)*0.9; z=Math.cos(i*1.1)*1.2; }       // disordered N-terminus
+    else if(i<22){ x=(i-15.5)*0.95; y=1.1; z=(i%2?0.35:-0.35); }                      // strand 1 (CHC)
+    else if(i<28){ var a=(i-22)/5*Math.PI; x=6.2+Math.sin(a)*1.3; y=1.1-(1-Math.cos(a))*1.1; z=0; } // turn
+    else { x=6.2-(i-28)*0.95; y=-1.1; z=(i%2?-0.35:0.35); }                            // strand 2 (C-term)
+    ref.push([x,y,z]);
+  }
+  var cx=0,cy=0,cz=0; ref.forEach(function(p){cx+=p[0];cy+=p[1];cz+=p[2]}); cx/=N;cy/=N;cz/=N;
+  ref=ref.map(function(p){return [p[0]-cx,p[1]-cy,p[2]-cz]});
+  var pos=ref.map(function(p){return [p[0]+gauss()*0.3,p[1]+gauss()*0.3,p[2]+gauss()*0.3]});
+  var vel=ref.map(function(){return [0,0,0]});
+  var BOND=0.95;
+  var trace=[], MAXT=260, t=0, frame=0;
+  var prev=pos.map(function(p){return p.slice()});
+
+  function step(){
+    var phase=frame/700;
+    var k=0.012 + 0.05*Math.pow((1+Math.cos(phase*Math.PI*2))/2, 2);   // restraint breathes: partial unfolding and refolding
+    var T=0.035;
+    var F=pos.map(function(){return [0,0,0]});
+    for(var a=0;a<N;a++){
+      // restraint toward reference
+      for(var d=0;d<3;d++) F[a][d]+= -k*(pos[a][d]-ref[a][d]);
+      // bonds
+      if(a<N-1){
+        var dx=pos[a+1][0]-pos[a][0], dy=pos[a+1][1]-pos[a][1], dz=pos[a+1][2]-pos[a][2];
+        var r=Math.sqrt(dx*dx+dy*dy+dz*dz)||1e-6, f=0.6*(r-BOND)/r;
+        F[a][0]+=f*dx; F[a][1]+=f*dy; F[a][2]+=f*dz;
+        F[a+1][0]-=f*dx; F[a+1][1]-=f*dy; F[a+1][2]-=f*dz;
+      }
+      // excluded volume
+      for(var b=a+2;b<N;b++){
+        var ex=pos[b][0]-pos[a][0], ey=pos[b][1]-pos[a][1], ez=pos[b][2]-pos[a][2];
+        var r2=ex*ex+ey*ey+ez*ez;
+        if(r2<0.64){ var rr=Math.sqrt(r2)||1e-6, g=0.2*(0.8-rr)/rr; F[a][0]-=g*ex;F[a][1]-=g*ey;F[a][2]-=g*ez; F[b][0]+=g*ex;F[b][1]+=g*ey;F[b][2]+=g*ez; }
+      }
+    }
+    for(a=0;a<N;a++) for(d=0;d<3;d++){
+      vel[a][d]=vel[a][d]*0.82 + F[a][d] + gauss()*T;
+      pos[a][d]+=vel[a][d];
+    }
+    // RMSD vs reference (same frame, centred)
+    var s=0, mx=0,my=0,mz=0;
+    for(a=0;a<N;a++){mx+=pos[a][0];my+=pos[a][1];mz+=pos[a][2];} mx/=N;my/=N;mz/=N;
+    for(a=0;a<N;a++){ var qx=pos[a][0]-mx-ref[a][0], qy=pos[a][1]-my-ref[a][1], qz=pos[a][2]-mz-ref[a][2]; s+=qx*qx+qy*qy+qz*qz; }
+    var rmsd=Math.sqrt(s/N)*0.38;   // 1 bead ≈ 0.38 nm (Cα–Cα)
+    frame++; t+=0.02;
+    if(frame%2===0){ trace.push(rmsd); if(trace.length>MAXT) trace.shift(); }
+    return rmsd;
+  }
+
+  var C={};
+  function readColors(){
+    var cs=getComputedStyle(root);
+    ['--ink','--muted','--line','--rose','--teal','--surface','--bg'].forEach(function(n){ C[n]=cs.getPropertyValue(n).trim(); });
+  }
+  readColors();
+  try{ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', readColors); }catch(e){}
+  new MutationObserver(function(){ readColors(); if(typeof draw==='function') draw(); }).observe(root,{attributes:true, attributeFilter:['data-theme','class']});
+
+  var ang=0, lastR=0, lerp=1;
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    var plotH=250, molH=H-plotH;
+    // molecule
+    var ca=Math.cos(ang), sa=Math.sin(ang), tilt=0.35, ct=Math.cos(tilt), st=Math.sin(tilt);
+    var scale=Math.min(W,molH)/10, ox=W/2, oy=molH/2+10;
+    var P=pos.map(function(p0,idx){
+      var q=prev[idx], p=[q[0]+(p0[0]-q[0])*lerp, q[1]+(p0[1]-q[1])*lerp, q[2]+(p0[2]-q[2])*lerp];
+      var x=p[0]*ca+p[2]*sa, z=-p[0]*sa+p[2]*ca, y=p[1]*ct - z*st; z=p[1]*st + z*ct;
+      var persp=1/(1+z*0.03);
+      return {x:ox+x*scale*persp, y:oy-y*scale*persp, z:z, r:(idx===16||idx===17||idx===18||idx===19||idx===20?1.15:1)*scale*0.30*persp, i:idx};
+    });
+    // bonds
+    ctx.lineCap='round';
+    for(var k=0;k<N-1;k++){
+      ctx.strokeStyle=C['--line']; ctx.lineWidth=scale*0.22;
+      ctx.beginPath(); ctx.moveTo(P[k].x,P[k].y); ctx.lineTo(P[k+1].x,P[k+1].y); ctx.stroke();
+    }
+    P.slice().sort(function(a,b){return b.z-a.z}).forEach(function(p){
+      var c=cls(SEQ[p.i]);
+      ctx.fillStyle = c==='h'?C['--teal']:(c==='c'?C['--rose']:C['--muted']);
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2); ctx.fill();
+      ctx.strokeStyle=C['--surface']; ctx.lineWidth=2; ctx.stroke();
+    });
+    // terminus labels
+    ctx.font='500 30px "IBM Plex Mono", ui-monospace, monospace'; ctx.fillStyle=C['--muted'];
+    ctx.fillText('N', P[0].x+P[0].r+6, P[0].y+7);
+    ctx.fillText('C', P[N-1].x+P[N-1].r+6, P[N-1].y+7);
+    // CHC label
+    var m=P[18]; ctx.fillStyle=C['--teal']; ctx.font='500 28px "IBM Plex Mono", ui-monospace, monospace';
+    ctx.fillText('LVFFA 17–21', m.x-80, m.y-m.r-16);
+
+    // RMSD plot
+    var px=96, pw=W-px-40, py=molH+44, ph=plotH-100, ymax=0.8;
+    ctx.strokeStyle=C['--line']; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.moveTo(px,py); ctx.lineTo(px,py+ph); ctx.lineTo(px+pw,py+ph); ctx.stroke();
+    ctx.font='400 26px "IBM Plex Mono", ui-monospace, monospace'; ctx.fillStyle=C['--muted'];
+    [0,0.4,0.8].forEach(function(v){
+      var yy=py+ph-(v/ymax)*ph; ctx.fillText(v.toFixed(1), px-62, yy+9);
+      ctx.strokeStyle=C['--line']; ctx.globalAlpha=.5; ctx.beginPath(); ctx.moveTo(px,yy); ctx.lineTo(px+pw,yy); ctx.stroke(); ctx.globalAlpha=1;
+    });
+    ctx.fillText('RMSD (nm)', px, py-14);
+    var tl='t = '+t.toFixed(1)+' ns'; ctx.fillText(tl, px+pw-ctx.measureText(tl).width, py+ph+38);
+    if(trace.length>1){
+      ctx.beginPath();
+      trace.forEach(function(v,j){ var xx=px+ j/(MAXT-1)*pw, yy=py+ph-Math.min(v,ymax)/ymax*ph; j?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy); });
+      ctx.strokeStyle=C['--rose']; ctx.lineWidth=3; ctx.stroke();
+      var lx=px+(trace.length-1)/(MAXT-1)*pw, ly=py+ph-Math.min(trace[trace.length-1],ymax)/ymax*ph;
+      ctx.fillStyle=C['--rose']; ctx.beginPath(); ctx.arc(lx,ly,6,0,Math.PI*2); ctx.fill();
+      var lab=trace[trace.length-1].toFixed(2)+' nm';
+      ctx.font='500 26px "IBM Plex Mono", ui-monospace, monospace';
+      ctx.fillText(lab, Math.min(lx+12, px+pw-ctx.measureText(lab).width), Math.max(ly-14, py+20));
+    }
+  }
+
+  // warm up so the first frame already shows a trace
+  for(i=0;i<MAXT*2;i++) step();
+  prev=pos.map(function(p){return p.slice()});
+  ang=0.5; draw();
+
+  var running=!reduce, visible=true, SUB=4, tick=0;   // one dynamics step every 4 frames, interpolated in between
+  try{ new IntersectionObserver(function(e){ visible=e[0].isIntersecting; }).observe(cv); }catch(e){}
+  function loop(){
+    if(running && visible && !document.hidden){
+      if(tick%SUB===0){ prev=pos.map(function(p){return p.slice()}); step(); }
+      lerp=(tick%SUB+1)/SUB; tick++;
+      ang+=0.0012; draw();
+    }
+    requestAnimationFrame(loop);
+  }
+  if(running) requestAnimationFrame(loop);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(draw);
+})();
+</script>
+</body>
+</html>
